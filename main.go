@@ -13,34 +13,22 @@ import (
 var STOP bool
 
 func main() {
-	fmt.Print("Selection (search, searchM, directory): ")
+	fmt.Println("Enter command followed by desired input (search, dir, searchm): ")
 	selec, _ := bufio.NewReader(os.Stdin).ReadString('\n')
 	selec = selec[:len(selec)-1]
 
-	if selec == "search" {
-		fmt.Print("Search: ")
-		input,_ := bufio.NewReader(os.Stdin).ReadString('\n')
-		input = input[:len(input)-1]
-		search(input, "/")
-	} else if selec == "searchM" {
-		fmt.Print("Search (all location): ")
-		input,_ := bufio.NewReader(os.Stdin).ReadString('\n')
-		input = input[:len(input)-1]
-		searchM(input, "/")
-	} else if selec == "directory" {
-		fmt.Print("Directory: ")
-		input,_ := bufio.NewReader(os.Stdin).ReadString('\n')
-		input = input[:len(input)-1]
-		recDirTrav(input, 0)
+	if strings.Contains(selec, "searchm") {
+		file := strings.Split(string(selec), " ")
+		searchM(file[1], "/")
+	} else if strings.Contains(selec, "search") {
+		file := strings.Split(string(selec), " ")
+		search(file[1], "/")
+	} else if strings.Contains(selec, "dir") {
+		dir := strings.Split(string(selec), " ")[1]
+		recDirTrav(dir, 0)
 	} else {
 		return
 	}
-//	search("main.go", "/")
-	//searchM("main.go", "/")
-	//fmt.Print("Directory: ")
-	//input,_ := bufio.NewReader(os.Stdin).ReadString('\n')
-	//input = input[:len(input)-1]
-	//recDirTrav(input, 0)
 }
 
 // returns all possible locations
